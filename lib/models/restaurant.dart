@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:food_app/models/food.dart';
 
-class Restaurant {
+class Restaurant extends ChangeNotifier {
   // list of food menu
   final List<Food> _menu = [
     // burgers
@@ -9,7 +10,7 @@ class Restaurant {
       description:
           "A juicy patty with melted cheddar, lettuce, tomato, and a hint of onion and pickle.",
 
-      imagePath: "lib/images/burgers/ClassicCheeseBurger_9.jpg ",
+      imagePath: "assets/images/burgers/ClassicCheeseBurger_9.jpg",
       price: 0.99,
       category: FoodCategory.burgers,
       availableAddons: [
@@ -22,7 +23,7 @@ class Restaurant {
       name: "Aloha Burger",
       description:
           "A tropical twist featuring a juicy beef patty, grilled pineapple, melted cheese, and tangy teriyaki sauce.",
-      imagePath: "lib/images/burgers/Aloha-Burger.jpg",
+      imagePath: "assets/images/burgers/Aloha-Burger.jpg",
       price: 5.49,
       category: FoodCategory.burgers,
       availableAddons: [
@@ -35,7 +36,7 @@ class Restaurant {
       name: "BBQ Burger",
       description:
           "Smoky and savory burger with BBQ sauce, crispy onions, cheddar cheese, and lettuce.",
-      imagePath: "lib/images/burgers/bbq-burger-21.jpg",
+      imagePath: "assets/images/burgers/bbq-burger-21.jpg",
       price: 5.99,
       category: FoodCategory.burgers,
       availableAddons: [
@@ -48,7 +49,7 @@ class Restaurant {
       name: "BlueMoon Burger",
       description:
           "A bold creation with creamy blue cheese, caramelized onions, and a perfectly grilled beef patty.",
-      imagePath: "lib/images/burgers/bluemoon.jpg",
+      imagePath: "assets/images/burgers/bluemoon.jpg",
       price: 6.29,
       category: FoodCategory.burgers,
       availableAddons: [
@@ -60,7 +61,7 @@ class Restaurant {
       name: "Veggie Burger",
       description:
           "A delicious plant-based patty served with fresh lettuce, tomato, onion, and creamy mayo.",
-      imagePath: "lib/images/burgers/vege_burger.jpg",
+      imagePath: "assets/images/burgers/vege_burger.jpg",
       price: 4.99,
       category: FoodCategory.burgers,
       availableAddons: [
@@ -76,7 +77,7 @@ class Restaurant {
       name: "Asian Salad",
       description:
           "A colorful mix of greens, shredded carrots, red cabbage, and sesame dressing topped with crunchy noodles.",
-      imagePath: "lib/images/salads/AsianSalad.jpg",
+      imagePath: "assets/images/salads/asian-salad.jpg",
       price: 4.49,
       category: FoodCategory.salads,
       availableAddons: [
@@ -91,7 +92,7 @@ class Restaurant {
       name: "Caesar Salad",
       description:
           "Crisp romaine lettuce tossed with creamy Caesar dressing, parmesan cheese, and crunchy croutons.",
-      imagePath: "lib/images/salads/Caesar-Salad.jpg",
+      imagePath: "assets/images/salads/Caesar-Salad.jpg",
       price: 3.99,
       category: FoodCategory.salads,
       availableAddons: [
@@ -106,7 +107,7 @@ class Restaurant {
       name: "Greek Salad",
       description:
           "A refreshing blend of tomatoes, cucumbers, onions, olives, and feta cheese with olive oil and herbs.",
-      imagePath: "lib/images/salads/greek-salad.jpg",
+      imagePath: "assets/images/salads/greek-salad.jpg",
       price: 4.29,
       category: FoodCategory.salads,
       availableAddons: [
@@ -120,7 +121,7 @@ class Restaurant {
       name: "Quinoa Salad",
       description:
           "Protein-rich quinoa mixed with fresh vegetables, chickpeas, and lemon herb dressing.",
-      imagePath: "lib/images/salads/quinoa-salad.jpg",
+      imagePath: "assets/images/salads/quinoa-salad.jpg",
       price: 4.79,
       category: FoodCategory.salads,
       availableAddons: [
@@ -134,7 +135,7 @@ class Restaurant {
       name: "Southwestern Salad",
       description:
           "A zesty combo of lettuce, black beans, corn, peppers, and tangy chipotle dressing.",
-      imagePath: "lib/images/salads/southwestern-salad.jpg",
+      imagePath: "assets/images/salads/southwestern-salad.jpg",
       price: 4.59,
       category: FoodCategory.salads,
       availableAddons: [
@@ -151,7 +152,7 @@ class Restaurant {
       name: "Garlic Bread",
       description:
           "Toasted baguette slices brushed with garlic butter and herbs.",
-      imagePath: "lib/images/sides/garlic-bread-side.jpg",
+      imagePath: "assets/images/sides/garlic-bread-side.jpg",
       price: 2.29,
       category: FoodCategory.sides,
       availableAddons: [
@@ -165,7 +166,7 @@ class Restaurant {
       name: "Loaded Fries",
       description:
           "Crispy fries topped with melted cheese, bacon bits, and a drizzle of creamy sauce.",
-      imagePath: "lib/images/sides/loadedfries-side.jpg",
+      imagePath: "assets/images/sides/loadedfries-side.jpg",
       price: 3.49,
       category: FoodCategory.sides,
       availableAddons: [
@@ -179,7 +180,7 @@ class Restaurant {
     Food(
       name: "Mac Side",
       description: "Creamy macaroni and cheese with a golden crispy topping.",
-      imagePath: "lib/images/sides/mac-side.jpg",
+      imagePath: "assets/images/sides/mac-side.jpg",
       price: 2.99,
       category: FoodCategory.sides,
       availableAddons: [
@@ -192,7 +193,7 @@ class Restaurant {
     Food(
       name: "Onion Rings",
       description: "Crispy golden onion rings served with tangy dipping sauce.",
-      imagePath: "lib/images/sides/onion-side.jpg",
+      imagePath: "assets/images/sides/onion-side.jpg",
       price: 2.49,
       category: FoodCategory.sides,
       availableAddons: [
@@ -206,7 +207,7 @@ class Restaurant {
       name: "Sweet Potato Fries",
       description:
           "Crunchy on the outside and soft inside, lightly salted sweet potato fries.",
-      imagePath: "lib/images/sides/sweet-side.jpg",
+      imagePath: "assets/images/sides/sweet-side.jpg",
       price: 2.79,
       category: FoodCategory.sides,
       availableAddons: [
@@ -216,6 +217,70 @@ class Restaurant {
     ),
 
     //desserts
+    Food(
+      name: "Chocolate Cake",
+      description:
+          "Rich and moist chocolate cake layered with creamy chocolate frosting.",
+      imagePath: "assets/images/desserts/cakes.jpg",
+      price: 3.99,
+      category: FoodCategory.desserts,
+      availableAddons: [
+        Addon(name: "Extra Chocolate Syrup", price: 0.49),
+        Addon(name: "Vanilla Ice Cream Scoop", price: 0.99),
+      ],
+    ),
+
+    Food(
+      name: "Cheesecake",
+      description:
+          "Smooth and creamy cheesecake with a buttery biscuit base and strawberry topping.",
+      imagePath: "assets/images/desserts/cheese.jpg",
+      price: 4.49,
+      category: FoodCategory.desserts,
+      availableAddons: [
+        Addon(name: "Blueberry Sauce", price: 0.59),
+        Addon(name: "Whipped Cream", price: 0.39),
+      ],
+    ),
+
+    Food(
+      name: "Chocolate Chip Cookies",
+      description:
+          "Soft-baked cookies filled with gooey chocolate chips and a hint of vanilla.",
+      imagePath: "assets/images/desserts/cookies.jpg",
+      price: 1.99,
+      category: FoodCategory.desserts,
+      availableAddons: [
+        Addon(name: "Extra Cookie", price: 0.99),
+        Addon(name: "Warm It Up", price: 0.29),
+      ],
+    ),
+
+    Food(
+      name: "Fruit Gelatin",
+      description:
+          "Refreshing fruity gelatin dessert made with a blend of seasonal fruit flavors.",
+      imagePath: "assets/images/desserts/gelatin.jpg",
+      price: 2.49,
+      category: FoodCategory.desserts,
+      availableAddons: [
+        Addon(name: "Whipped Cream", price: 0.39),
+        Addon(name: "Mixed Fruit Topping", price: 0.69),
+      ],
+    ),
+
+    Food(
+      name: "Strawberry Pastry",
+      description:
+          "Flaky pastry filled with sweet strawberry jam and topped with light icing.",
+      imagePath: "assets/images/desserts/pastries.jpg",
+      price: 3.29,
+      category: FoodCategory.desserts,
+      availableAddons: [
+        Addon(name: "Extra Jam", price: 0.49),
+        Addon(name: "Sugar Glaze", price: 0.29),
+      ],
+    ),
 
     //drinks
   ];
