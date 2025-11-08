@@ -283,6 +283,67 @@ class Restaurant extends ChangeNotifier {
     ),
 
     //drinks
+    Food(
+      name: "Apple Cider",
+      description:
+          "Refreshing chilled apple cider with a perfect balance of sweetness and tanginess.",
+      imagePath: "assets/images/drinks/cider.jpg",
+      price: 2.99,
+      category: FoodCategory.drinks,
+      availableAddons: [
+        Addon(name: "Extra Ice Cubes", price: 0.19),
+        Addon(name: "Cinnamon Stick", price: 0.29),
+      ],
+    ),
+
+    Food(
+      name: "Herbal Tea",
+      description:
+          "A soothing herbal tea brewed with natural herbs and a hint of mint aroma.",
+      imagePath: "assets/images/drinks/herbal.jpg",
+      price: 2.49,
+      category: FoodCategory.drinks,
+      availableAddons: [
+        Addon(name: "Lemon Slice", price: 0.19),
+        Addon(name: "Honey", price: 0.29),
+      ],
+    ),
+
+    Food(
+      name: "Mango Juice",
+      description:
+          "Freshly blended mango juice, smooth and full of tropical sweetness.",
+      imagePath: "assets/images/drinks/juice.jpg",
+      price: 2.79,
+      category: FoodCategory.drinks,
+      availableAddons: [
+        Addon(name: "Ice Cubes", price: 0.19),
+        Addon(name: "Mint Leaves", price: 0.29),
+      ],
+    ),
+
+    Food(
+      name: "Fresh Milk",
+      description:
+          "Chilled pure cow’s milk served fresh, rich in calcium and protein.",
+      imagePath: "assets/images/drinks/milk.jpg",
+      price: 1.99,
+      category: FoodCategory.drinks,
+      availableAddons: [
+        Addon(name: "Chocolate Syrup", price: 0.49),
+        Addon(name: "Strawberry Flavor", price: 0.49),
+      ],
+    ),
+
+    Food(
+      name: "Mineral Water",
+      description:
+          "Pure and refreshing bottled mineral water to keep you hydrated.",
+      imagePath: "assets/images/drinks/water.jpg",
+      price: 0.99,
+      category: FoodCategory.drinks,
+      availableAddons: [Addon(name: "Chilled Option", price: 0.10)],
+    ),
   ];
 
   /* 
