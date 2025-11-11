@@ -24,6 +24,7 @@ class MyCartTile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // food image
                   ClipRRect(
@@ -44,7 +45,12 @@ class MyCartTile extends StatelessWidget {
                       Text(cartItem.food.name),
 
                       //food price
-                      Text('\$' + cartItem.food.price.toString()),
+                      Text(
+                        '\$' + cartItem.food.price.toString(),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
                     ],
                   ),
 
@@ -75,28 +81,31 @@ class MyCartTile extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 10, bottom: 10, right: 10),
                 children: cartItem.selectedAddons
                     .map(
-                      (addon) => FilterChip(
-                        label: Row(
-                          children: [
-                            // addon name
-                            Text(addon.name),
+                      (addon) => Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: FilterChip(
+                          label: Row(
+                            children: [
+                              // addon name
+                              Text(addon.name),
 
-                            //addon price
-                            Text('(\$${addon.price})'),
-                          ],
-                        ),
-                        shape: StadiumBorder(
-                          side: BorderSide(
-                            color: Theme.of(context).colorScheme.primary,
+                              //addon price
+                              Text('(\$${addon.price})'),
+                            ],
                           ),
-                        ),
-                        onSelected: (value) {},
-                        backgroundColor: Theme.of(
-                          context,
-                        ).colorScheme.inversePrimary,
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
+                          shape: StadiumBorder(
+                            side: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                          onSelected: (value) {},
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.inversePrimary,
+                          labelStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     )
