@@ -158,6 +158,8 @@ class _FoodPageState extends State<FoodPage> {
               child: IconButton(
                 icon: const Icon(Icons.arrow_back_ios_new_rounded),
                 onPressed: () => Navigator.pop(context),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
               ),
             ),
           ),
