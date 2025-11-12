@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/components/my_quantity_selector.dart';
 import 'package:food_app/models/cart_item.dart';
-import 'package:food_app/models/food.dart';
 import 'package:food_app/models/restaurant.dart';
 import 'package:provider/provider.dart';
 
