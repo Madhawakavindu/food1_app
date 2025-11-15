@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/components/my_button.dart';
 import 'package:food_app/components/my_textfield.dart';
 import 'package:food_app/pages/home_page.dart';
+import 'package:food_app/services/auth/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -18,7 +19,24 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   // login method
-  void login() {
+  void login() async {
+    // get instance of auth service
+    final _authService = AuthService();
+
+    //try sign in
+    try {
+      await _authService.signInWithEmailPassword(
+        emailController.text,
+        passwordController.text,
+      );
+    }
+    //display any errors
+    catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(title: Text(e.toString())),
+      );
+    }
     /*
     
     full out authentication here...
@@ -29,6 +47,17 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const HomePage()),
+    );
+  }
+
+  //forget password
+  void forgotPw() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        title: const Text("User tapped forgat password."),
+      ),
     );
   }
 
