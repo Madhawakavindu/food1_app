@@ -1,9 +1,8 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:food_app/components/my_button.dart';
 import 'package:food_app/components/my_textfield.dart';
 import 'package:food_app/services/auth/auth_service.dart';
+import 'package:food_app/pages/home_page.dart';
 
 class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
@@ -15,42 +14,55 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  //text editing controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
-  //register method
+  // Register function
   void register() async {
-    //get auth service
-    final _authService = AuthService();
+    final auth = AuthService();
 
-    //check if passwords match -> create user
-    if (passwordController.text == confirmPasswordController.text) {
-      // try creating user
-      try {
-        await _authService.signUpWithEmailPassword(
-          emailController.text,
-          passwordController.text,
-        );
-      }
-      //display any errors
-      catch (e) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(title: Text(e.toString())),
-        );
-      }
-    }
-    // if passwords don't match -> show error
-    else {
+    // Check if passwords match
+    if (passwordController.text.trim() !=
+        confirmPasswordController.text.trim()) {
       showDialog(
         context: context,
         builder: (context) =>
-            AlertDialog(title: Text("Passwords don't match!")),
+            const AlertDialog(title: Text("Passwords don't match!")),
+      );
+      return;
+    }
+
+    try {
+      // Sign up user
+      await auth.signUpWithEmailPassword(
+        emailController.text.trim(),
+        passwordController.text.trim(),
+      );
+
+      // Make sure the widget is still in the tree
+      if (!mounted) return;
+
+      // Navigate to HomePage after successful registration
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(title: Text(e.toString())),
       );
     }
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -58,80 +70,80 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //loop
-            Icon(
-              Icons.lock_open_rounded,
-              size: 100,
-              color: Theme.of(context).colorScheme.inversePrimary,
-            ),
-
-            const SizedBox(height: 25),
-
-            //message, app slogan
-            Text(
-              "Let's create an account for you",
-              style: TextStyle(
-                fontSize: 16,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.lock_open_rounded,
+                size: 100,
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),
-            ),
-            const SizedBox(height: 25),
+              const SizedBox(height: 25),
 
-            //email textfield
-            MyTextfield(
-              controller: emailController,
-              hintText: "Email",
-              obscureText: false,
-            ),
-
-            const SizedBox(height: 10),
-
-            //password textfield
-            MyTextfield(
-              controller: passwordController,
-              hintText: "Password",
-              obscureText: true,
-            ),
-            const SizedBox(height: 10),
-            //confirm password textfield
-            MyTextfield(
-              controller: passwordController,
-              hintText: "Confirm password",
-              obscureText: true,
-            ),
-            const SizedBox(height: 10),
-
-            //sign up button
-            MyButton(text: "Sign Un", onTap: () {}),
-            const SizedBox(height: 25),
-
-            //already have an account? login here
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "already have an account?",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                  ),
+              Text(
+                "Let's create an account for you",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Theme.of(context).colorScheme.inversePrimary,
                 ),
-                const SizedBox(width: 5),
-                GestureDetector(
-                  onTap: widget.onTap,
-                  child: Text(
-                    "Login now",
+              ),
+              const SizedBox(height: 25),
+
+              MyTextfield(
+                controller: emailController,
+                hintText: "Email",
+                obscureText: false,
+              ),
+              const SizedBox(height: 10),
+
+              MyTextfield(
+                controller: passwordController,
+                hintText: "Password",
+                obscureText: true,
+              ),
+              const SizedBox(height: 10),
+
+              MyTextfield(
+                controller: confirmPasswordController,
+                hintText: "Confirm password",
+                obscureText: true,
+              ),
+              const SizedBox(height: 20),
+
+              MyButton(text: "Sign Up", onTap: register),
+              const SizedBox(height: 25),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already have an account?",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.inversePrimary,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  const SizedBox(width: 5),
+                  GestureDetector(
+                    onTap:
+                        widget.onTap ??
+                        () {
+                          // Optional fallback navigation to login page
+                          Navigator.pop(context);
+                        },
+                    child: Text(
+                      "Login now",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

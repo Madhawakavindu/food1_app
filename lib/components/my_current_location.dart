@@ -2,44 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:food_app/models/restaurant.dart';
 import 'package:provider/provider.dart';
 
-class MyCurrentLocation extends StatelessWidget {
+class MyCurrentLocation extends StatefulWidget {
   const MyCurrentLocation({super.key});
 
+  @override
+  State<MyCurrentLocation> createState() => _MyCurrentLocationState();
+}
+
+class _MyCurrentLocationState extends State<MyCurrentLocation> {
+  // Make it a member variable
+  final TextEditingController textController = TextEditingController();
+
   void openLocationSearchBox(BuildContext context) {
-    final textController = TextEditingController();
-    final restaurant = Provider.of<Restaurant>(context, listen: false);
+    final restaurant = context.read<Restaurant>();
+
     textController.text = restaurant.deliveryAddress;
 
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Your location"),
-        content: TextField(
-          controller: textController,
-          decoration: const InputDecoration(hintText: "Enter address.."),
-        ),
-        //cancel button
-        actions: [
-          // cancel
-          MaterialButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+      builder: (_) {
+        return AlertDialog(
+          title: const Text("Your location"),
+          content: TextField(
+            controller: textController,
+            decoration: const InputDecoration(hintText: "Enter address.."),
           ),
-          //save
-          MaterialButton(
-            onPressed: () {
-              // update delivery address
-              String newAddress = textController.text;
-              context.read<Restaurant>().updateDeliveryAddress(newAddress);
-              restaurant.updateDeliveryAddress(textController.text.trim());
-              Navigator.pop(context);
-              textController.clear();
-            },
-            child: const Text("Save"),
-          ),
-        ],
-      ),
-    ).then((_) => textController.dispose());
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                final newAddress = textController.text.trim();
+                Navigator.pop(context, newAddress);
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    ).then((result) {
+      if (result != null && result.isNotEmpty) {
+        restaurant.updateDeliveryAddress(result);
+      }
+    });
+  }
+
+  //  Dispose the controller safely
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
   }
 
   @override
@@ -66,7 +80,6 @@ class MyCurrentLocation extends StatelessWidget {
                     ),
                   ),
                 ),
-                //drop down menu
                 Icon(
                   Icons.keyboard_arrow_down_rounded,
                   color: Theme.of(context).colorScheme.inversePrimary,
